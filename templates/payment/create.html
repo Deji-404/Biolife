@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container">
+    <nav class="biolife-nav">
+        <ul>
+            <li class="nav-item"><a href="{% url 'market:home' %}" class="permal-link">Home</a></li>
+            <li class="nav-item"><span class="current-page">ShoppingCart</span></li>
+        </ul>
+    </nav>
+</div>
+
+
+<div class="page-contain checkout">
+
+    <!-- Main content -->
+    <div id="main-content" class="main-content">
+        <div class="container sm-margin-top-37px">
+            <div class="row">
+
+                <!--checkout progress box-->
+                <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                    <div class="checkout-progress-wrap">
+                        <ul class="steps">
+                            <li class="step 1st">
+                                <div class="checkout-act active">
+                                    <h3 class="title-box"><span class="number">+</span>Delivery Details</h3>
+                                    <div class="box-content">
+                                        <!--<p class="txt-desc">Checking out as a <a class="pmlink" href="#">Guest?</a> You’ll be able to save your details to create an account with us later.</p> -->
+                                        <div class="login-on-checkout">
+                                            <form action="#" name="frm-login" method="post">
+                                                {% csrf_token %}
+                                                <p class="form-row">
+                                                    <label for="username">Username</label>
+                                                    <input type="text" name="username" id="username" value="" placeholder="Username">
+                                                </p>
+
+                                                <p class="form-row">
+                                                    <label for="input_email">Email</label>
+                                                    <input type="email" name="email" id="input_email" value="" placeholder="Email">
+                                                </p>
+
+                                                <p class="form-row">
+                                                    <label for="input_phone">Phone</label>
+                                                    <input type="text" name="phone" id="input_phone" value="" placeholder="Phone">
+                                                </p>
+                                                
+                                                <p class="form-row">
+                                                    <label for="input_location">Location</label>
+                                                    <input type="text" name="address" id="input_location" value="" placeholder="Location">
+                                                </p>
+
+                                                <p class="form-row">
+                                                    <button type="submit" name="btn-sbmt" class="btn">Continue To Payment</button>
+
+                                                </p>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <!--
+                            <li class="step 2nd">
+                                <div class="checkout-act"><h3 class="title-box"><span class="number">2</span>Shipping</h3></div>
+                            </li>
+                            <li class="step 3rd">
+                                <div class="checkout-act"><h3 class="title-box"><span class="number">3</span>Billing</h3></div>
+                            </li>
+                            <li class="step 4th">
+                                <div class="checkout-act"><h3 class="title-box"><span class="number">4</span>Payment</h3></div>
+                            </li>
+                            -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!--Order Summary-->
+                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 sm-padding-top-48px sm-margin-bottom-0 xs-margin-bottom-15px">
+                    <div class="order-summary sm-margin-bottom-80px">
+                        <div class="title-block">
+                            <h3 class="title">Order Summary</h3>
+                            <a href="#" class="link-forward">Edit cart</a>
+                        </div>
+                        <div class="cart-list-box short-type">
+                            <span class="number">2 items</span>
+                            <ul class="cart-list">
+                                {% for item in items %}
+                                <li class="cart-elem">
+                                    <div class="cart-item">
+                                        <div class="product-thumb">
+                                            <a class="prd-thumb" href="#">
+                                                <figure><img src="{{ item.item.photo.url }}" alt="shop-cart" width="113" height="113"></figure>
+                                            </a>
+                                        </div>
+                                        <div class="info">
+                                            <span class="txt-quantity">{{ item.quantity }}X</span>
+                                            <a href="#" class="pr-name">{{ item.item.name }}</a>
+                                        </div>
+                                        <div class="price price-contain">
+                                            <ins><span class="price-amount"><span class="currencySymbol">£</span>{{ item.item.price }}</span></ins>
+                                            <!-- <del><span class="price-amount"><span class="currencySymbol">£</span>95.00</span></del> -->
+                                        </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            <ul class="subtotal">
+                                <li>
+                                    <div class="subtotal-line">
+                                        <b class="stt-name">Subtotal</b>
+                                        <span class="stt-price">{{ order.get_total_price }}</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="subtotal-line">
+                                        <b class="stt-name">Shipping</b>
+                                        <span class="stt-price">£20.00</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="subtotal-line">
+                                        <b class="stt-name">Tax</b>
+                                        <span class="stt-price">£0.00</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="subtotal-line">
+                                        <a href="#" class="link-forward">Promo/Gift Certificate</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="subtotal-line">
+                                        <b class="stt-name">total:</b>
+                                        <span class="stt-price">{{ order.get_total_price }}</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

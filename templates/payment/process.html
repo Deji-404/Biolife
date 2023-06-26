@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container">
+    <nav class="biolife-nav">
+        <ul>
+            <li class="nav-item"><a href="{% url 'market:home' %}" class="permal-link">Home</a></li>
+            <li class="nav-item"><span class="current-page">ShoppingCart</span></li>
+        </ul>
+    </nav>
+</div>
+
+
+<style>
+
+    .stt-price {
+
+        font-weight: 400;
+        color: black;
+        font-size: 15
+    }
+</style>
+
+<div class="page-contain checkout">
+
+    <!-- Main content -->
+    <div id="main-content" class="main-content">
+        <div class="container sm-margin-top-37px">
+            <div class="row">
+
+                <!--Order Summary-->
+                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12 sm-padding-top-48px sm-margin-bottom-0 xs-margin-bottom-15px">
+                    <div class="order-summary sm-margin-bottom-80px">
+                        <div class="title-block">
+                            <h3 class="title">Order Summary</h3>
+                            <a href="#" class="link-forward">payment {{ payment.id }}</a>
+                        </div>
+                        <div class="cart-list-box short-type">
+                            
+                            <ul class="addr-info">
+                                <li>
+                                    <div class="if-item">
+                                        <b class="tie">Created on:</b>
+                                        <p class="dsc">{{ payment.created_on }}</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="if-item">
+                                        <b class="tie">Customer:</b>
+                                        <p class="dsc">{{ payment.username }}</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="if-item">
+                                        <b class="tie">Phone:</b>
+                                        <p class="dsc">{{ payment.phone }}</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="if-item">
+                                        <b class="tie">Email:</b>
+                                        <p class="dsc">{{ payment.email }}</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="if-item">
+                                        <b class="tie">Address:</b>
+                                        <p class="dsc">{{ payment.address }}</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="if-item">
+                                        <b class="tie">Paid:</b>
+                                        <p class="dsc">{% if payment.paid %}Paid{% else %}Pending Payment{% endif %}</p>
+                                    </div>
+                                </li>
+                                
+                            </ul>
+
+                            <form action="{% url "payment:process" %}" method="post">
+                                <p class="form-row">
+                                    <button type="submit" name="btn-sbmt" class="btn">Continue To Payment</button>
+    
+                                </p>
+                                {% csrf_token %}
+                            </form>
+
+                           
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
